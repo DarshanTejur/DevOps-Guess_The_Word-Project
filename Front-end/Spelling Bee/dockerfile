@@ -1,0 +1,27 @@
+# Build stage
+FROM node:18 AS build
+
+# Set working directory
+WORKDIR /app
+
+# Install dependencies
+COPY package*.json ./
+RUN npm install
+
+# Copy rest of the source
+COPY . .
+
+# Build the project
+RUN npm run build
+
+# Serve stage using a lightweight web server (Nginx)
+FROM nginx:alpine
+
+# Copy built files to nginx web root
+COPY --from=build /app/dist /usr/share/nginx/html
+
+# Expose default port
+EXPOSE 80
+
+# Start Nginx
+CMD ["nginx", "-g", "daemon off;"]
