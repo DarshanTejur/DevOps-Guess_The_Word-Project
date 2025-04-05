@@ -2,17 +2,31 @@ version: '3.8'
 
 services:
   backend:
+    container_name: spelling-bee-backend
     build:
       context: ./Back-end
+      dockerfile: Dockerfile
     ports:
       - "5000:5000"
     volumes:
       - ./Back-end:/app
     restart: always
+    depends_on:
+      - frontend
+    networks:
+      - spelling-bee-network
 
   frontend:
+    container_name: spelling-bee-frontend
     build:
       context: ./Front-end/Spelling Bee
+      dockerfile: Dockerfile
     ports:
       - "3000:80"
     restart: always
+    networks:
+      - spelling-bee-network
+
+networks:
+  spelling-bee-network:
+    driver: bridge
