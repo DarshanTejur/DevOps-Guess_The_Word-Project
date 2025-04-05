@@ -163,19 +163,6 @@ You don't need to touch any internal code files — everything is already config
               * Click the Actions tab
               * You’ll see the pipeline automatically running on push!
 
-
-
-## Usage
-
-
-1. Start the Flask backend and ensure it is running.
-2. Start the React frontend.
-3. Open your browser and navigate to http://localhost:3000 (or the port specified by React).
-
-## API Endpoints
-
-A Swagger interface is provided to explore and test endpoints interactively under the URL: [http://127.0.0.1:5000/apidocs/](http://127.0.0.1:5000/apidocs/)
-
 ## Contact
 
 Feel free to contact me for any questions or suggestions about this project.
