@@ -33,7 +33,7 @@ This is a DevOps-enhanced version of the classic Guess The Word game, featuring 
       
 ## Folder Structure
 
-
+```
 DevOps-Guess_The_Word-Project/
 │
 ├── Back-end/               # Flask backend source code
@@ -46,7 +46,7 @@ DevOps-Guess_The_Word-Project/
 │   └── variables.tf
 └── .github/workflows/
     └── devops-pipeline.yml # CI/CD pipeline
-
+```
 
 ### Step-by-Step Setup Instructions
 You don't need to touch any internal code files — everything is already configured.
