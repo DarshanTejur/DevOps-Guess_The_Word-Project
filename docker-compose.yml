@@ -23,4 +23,4 @@ jobs:
           docker-compose --version
 
       - name: Build containers
-        run: docker-compose -f docker-compose.yml build
+        run: docker compose -f docker-compose.yml build
