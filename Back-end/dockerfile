@@ -1,6 +1,9 @@
 # Use an official Python runtime as a parent image
 FROM python:3.11-slim
 
+# Install curl and procps for debugging (e.g., curl, ps commands)
+RUN apt update && apt install -y curl procps && apt clean
+
 # Set the working directory
 WORKDIR /app
 
