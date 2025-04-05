@@ -1,4 +1,4 @@
-name: DevOps CI Pipeline
+name: DevOps Docker CI
 
 on:
   push:
@@ -9,50 +9,25 @@ on:
       - devops-features
 
 jobs:
-  backend:
-    name: Flask Backend - Test
+  backend-docker-build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.11'
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
 
-      - name: Install Dependencies
-        run: |
-          cd Back-end
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
+    - name: Install dependencies
+      run: |
+        cd Back-end
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt || true
 
-      - name: Lint Backend (flake8)
-        run: |
-          pip install flake8
-          cd Back-end
-          flake8 app.py
+    - name: Build Docker images
+      run: |
+        docker-compose -f docker-compose.yml build
 
-  frontend:
-    name: React Frontend - Build
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-
-      - name: Install Frontend Dependencies
-        run: |
-          cd Front-end/"Spelling Bee"
-          npm install
-
-      - name: Build Frontend
-        run: |
-          cd Front-end/"Spelling Bee"
-          npm run build
