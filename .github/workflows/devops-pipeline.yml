@@ -1,0 +1,58 @@
+name: DevOps CI Pipeline
+
+on:
+  push:
+    branches:
+      - devops-features
+  pull_request:
+    branches:
+      - devops-features
+
+jobs:
+  backend:
+    name: Flask Backend - Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install Dependencies
+        run: |
+          cd Back-end
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Lint Backend (flake8)
+        run: |
+          pip install flake8
+          cd Back-end
+          flake8 app.py
+
+  frontend:
+    name: React Frontend - Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install Frontend Dependencies
+        run: |
+          cd Front-end/"Spelling Bee"
+          npm install
+
+      - name: Build Frontend
+        run: |
+          cd Front-end/"Spelling Bee"
+          npm run build
